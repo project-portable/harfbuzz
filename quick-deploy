@@ -98,9 +98,13 @@ ${_steps_install}
 
 find ./build_environment
 
-
 for step in "${_steps_extra[@]}"; do
   ${step}
+done
+
+for file in build_environment/usr/lib/pkgconfig/*.pc; do
+  sed "s|$(pwd)/build_environment||g" ${file}
+  sed -i "s|$(pwd)/build_environment||g" ${file}
 done
 
 tar -cvzf ${_name}.tar.gz -C build_environment .
