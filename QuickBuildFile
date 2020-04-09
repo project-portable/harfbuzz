@@ -31,4 +31,5 @@ steps:
   extra:
     - echo oi
   after:
+    - find .
     - bash upload.sh harfbuzz.tar.gz
