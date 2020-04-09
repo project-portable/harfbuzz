@@ -46,7 +46,7 @@ export REPO_SLUG="${_slug}"
   _dependencies_apt+=("python3-setuptools")
   _dependencies_pip3+=("ninja")
   _steps_compile+=("ninja -C _build")
-  _steps_install+=("sudo ninja -C _build install")
+  _steps_install+=("ninja -C _build install")
 }
 
 [ "${_build_configure}" = "autotools" ] && {
@@ -56,7 +56,7 @@ export REPO_SLUG="${_slug}"
 
 [ "${_build_make}" = "make" ] && {
   _steps_compile+=("make")
-  _steps_install+=("sudo make install")
+  _steps_install+=("make install")
 }
 
 wget -nv -c --show-progress --progress=bar:force:noscroll "${_dependencies_download[@]}"
@@ -90,7 +90,7 @@ for step in "${_steps_compile[@]}"; do
   ${step}
 done
 
-strace -e trace=write ${_steps_install}
+sudo strace -e trace=write ${_steps_install}
 
 #${_steps_install} | grep ^"Installing" \
 #                  | awk '{print "cp -v --parents",$4"/$(basename "$2") ./build_environment"}' \
