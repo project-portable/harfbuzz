@@ -51,7 +51,7 @@ export REPO_SLUG="${_slug}"
 
 [ "${_build_configure}" = "autotools" ] && {
   _steps_build+=("./autogen.sh")
-  _steps_build+=("./configure --prefix=$(pwd)/build_environment/usr/")
+  _steps_build+=("./configure")
 }
 
 [ "${_build_make}" = "make" ] && {
@@ -96,15 +96,9 @@ ${_steps_install}
 #                  | awk '{print "cp -v --parents",$4"/$(basename "$2") ./build_environment"}' \
  #                 | sh
 
-find ./build_environment
 
 for step in "${_steps_extra[@]}"; do
   ${step}
-done
-
-for file in build_environment/usr/lib/pkgconfig/*.pc; do
-  sed "s|$(pwd)/build_environment||g" ${file}
-  sed -i "s|$(pwd)/build_environment||g" ${file}
 done
 
 tar -cvzf ${_name}.tar.gz -C build_environment .
