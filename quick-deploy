@@ -50,8 +50,8 @@ export REPO_SLUG="${_slug}"
 }
 
 [ "${_build_configure}" = "autotools" ] && {
-  _steps_build+=("./autogen.sh --prefix=$(pwd)/build_environment")
-  _steps_build+=("./configure")
+  _steps_build+=("./autogen.sh")
+  _steps_build+=("./configure --prefix=$(pwd)/build_environment/")
 }
 
 [ "${_build_make}" = "make" ] && {
@@ -90,7 +90,7 @@ for step in "${_steps_compile[@]}"; do
   ${step}
 done
 
-sudo strace -e trace=write ${_steps_install}
+${_steps_install}
 
 #${_steps_install} | grep ^"Installing" \
 #                  | awk '{print "cp -v --parents",$4"/$(basename "$2") ./build_environment"}' \
