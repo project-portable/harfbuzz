@@ -51,7 +51,7 @@ export REPO_SLUG="${_slug}"
 
 [ "${_build_configure}" = "autotools" ] && {
   _steps_build+=("./autogen.sh")
-  _steps_build+=("./configure --prefix=$(pwd)/build_environment/")
+  _steps_build+=("./configure --prefix=$(pwd)/build_environment/usr/")
 }
 
 [ "${_build_make}" = "make" ] && {
