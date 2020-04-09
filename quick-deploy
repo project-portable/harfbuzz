@@ -90,7 +90,7 @@ for step in "${_steps_compile[@]}"; do
   ${step}
 done
 
-${_steps_install}
+sudo ${_steps_install}
 
 #${_steps_install} | grep ^"Installing" \
 #                  | awk '{print "cp -v --parents",$4"/$(basename "$2") ./build_environment"}' \
