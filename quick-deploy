@@ -97,19 +97,17 @@ ${_steps_install}
  #                 | sh
 
 find ./build_environment
-exit
+
 
 for step in "${_steps_extra[@]}"; do
   ${step}
 done
 
-tar -cvzf ${_name}.tar.gz -C build_environment .
-
 for step in "${_steps_after[@]}"; do
   ${step}
 done
 
-
+tar -cvzf ${_name}.tar.gz -C build_environment .
 
 
 
